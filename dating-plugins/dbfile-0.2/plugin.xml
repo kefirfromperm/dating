@@ -1,0 +1,23 @@
+<plugin name='dbfile' version='0.2' grailsVersion='1.3.6 &gt; *'>
+  <author>Vitaliy Samolovskih</author>
+  <authorEmail>kefir@perm.ru</authorEmail>
+  <title>Store files in DB</title>
+  <description>\
+Store files in Db and get them.
+</description>
+  <resources>
+    <resource>BuildConfig</resource>
+    <resource>Config</resource>
+    <resource>DataSource</resource>
+    <resource>UrlMappings</resource>
+    <resource>ru.permintel.saga.SagaFileController</resource>
+    <resource>ru.permintel.saga.SagaFile</resource>
+    <resource>ru.permintel.saga.SagaFileContent</resource>
+    <resource>ru.permintel.saga.SagaFileService</resource>
+  </resources>
+  <dependencies>
+    <plugin name='hibernate' version='1.3.6 &gt; *' />
+    <plugin name='sendfile' version='0.1 &gt; *' />
+  </dependencies>
+  <behavior />
+</plugin>

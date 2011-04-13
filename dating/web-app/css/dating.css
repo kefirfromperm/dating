@@ -1,0 +1,343 @@
+body {
+    background-color: white;
+    font-family: sans-serif;
+    font-size: small;
+    margin: 0;
+}
+
+a {
+    color: green;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #006400;
+    background-color: #98fb98;
+}
+
+h1 {
+    color: green;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+h2 {
+    color: green;
+    font-size: large;
+    font-weight: bold;
+    margin: 0;
+    padding: 0 5px 5px;
+}
+
+/* Hide when there is not java script */
+.js {
+    display: none;
+}
+
+div#body {
+    margin: 0 auto;
+    width: 980px;
+}
+
+.error, div#flash-message.error {
+    border: 1px solid #c00000;
+    background-color: #ffe0e0;
+}
+
+.error div, div#flash-message.error {
+    color: #c00000;
+}
+
+.error div {
+    max-width: 100%;
+}
+
+.default-hide {
+    display: none;
+}
+
+/* Header */
+div#header {
+    height: 22px;
+    padding: 5px;
+    color: white;
+    background-color: green;
+}
+
+div#header a {
+    color: white;
+    background-color: green;
+    margin: 0 5px;
+}
+
+div#header a:hover {
+    text-decoration: underline;
+}
+
+div#header div {
+    height: 22px;
+    position: relative;
+}
+
+div#header div.left {
+    float: left;
+}
+
+div#header div.left a {
+    vertical-align: middle;
+}
+
+div#header div.right {
+    float: right;
+}
+
+form#search, form#luck, form#lang {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+form#search {
+    text-align: center;
+}
+
+form#search input#query {
+    min-width: 240px;
+    max-width: 280px;
+}
+
+/** Flash message at all pages */
+div#flash-message {
+    margin: 10px 0 0;
+    padding: 5px 5px;
+    border: 1px solid green;
+    background-color: #ffffe0;
+}
+
+div#footer {
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
+    clear: both;
+    float: left;
+}
+
+/** Form */
+div.form {
+    text-align: center;
+}
+
+div.form form {
+    display: inline-block;
+    margin: 25px auto;
+    text-align: left;
+}
+
+form div.field {
+    margin: 10px 5px;
+    padding: 5px;
+    text-align: left;
+}
+
+form div.field label {
+    display: block;
+}
+
+form div.field.checkbox label {
+    display: inline;
+}
+
+form .required {
+    color: #c00000;
+}
+
+form .buttons {
+    margin: 10px 5px;
+    padding: 5px;
+}
+
+form .alias {
+    color: green;
+}
+
+/** From field size */
+input.short, select.short textarea.short {
+    width: 160px;
+}
+
+input.medium, select.medium, textarea.medium {
+    width: 320px;
+}
+
+input.big, select.big, textarea.big {
+    width: 640px;
+}
+
+/** Show and list profile */
+div#search-result {
+    float: left;
+    margin: 5px;
+    padding: 5px;
+    clear: left;
+}
+
+div#search-result h1 {
+    padding-top: 0;
+    margin-top: 0;
+}
+
+div#search-result table, div#search-result table tbody,
+div#search-result table tbody tr, div#search-result table tbody tr td {
+    border: none;
+    border-collapse: collapse;
+}
+
+div#search-result table tbody tr td {
+    vertical-align: top;
+    padding: 10px 10px 30px;
+}
+
+div#search-result table tbody tr td p {
+    padding: 0;
+    margin: 0 0 20px;
+}
+
+div#profile-menu {
+    float: left;
+    width: 700px;
+    margin: 5px;
+    padding: 5px;
+    text-align: center;
+}
+
+div#profile-menu a {
+    margin: 0 5px;
+}
+
+div#photo {
+    float: left;
+    clear: left;
+    width: 200px;
+    margin: 5px;
+    padding: 5px;
+}
+
+div#photo-form {
+    float: left;
+    clear: right;
+    margin: 5px;
+    padding: 5px;
+}
+
+/* Traffic lights */
+div#traffic-lights {
+    float: left;
+    width: 100px;
+    margin: 5px;
+    padding: 5px;
+}
+
+div#traffic-lights img, div#search-result table tbody tr td.traffic-lights img {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+div#about {
+    float: left;
+    clear: left;
+    margin: 5px;
+    padding: 5px;
+}
+
+/* Book */
+div#bookmarks {
+    float: right;
+    clear: right;
+    width: 240px;
+    margin: 5px;
+    padding: 5px;
+}
+
+div#bookmarks a {
+    display: block;
+    padding: 5px;
+    margin: 0;
+}
+
+/** Messenger */
+div#body div#messenger {
+    float: left;
+    width: 360px;
+    height: 300px;
+}
+
+div#messenger {
+    margin: 5px;
+    padding: 5px;
+}
+
+div#messenger div#message-list {
+    border: groove;
+    height: 200px;
+    overflow: auto;
+    margin: 0 0 5px;
+}
+
+div#messenger div#message-manage {
+    padding: 0 5px;
+    margin: 0 0 5px;
+}
+
+div#messenger div#message-input {
+    width: 100%;
+    height: 54px;
+}
+
+div#messenger div#message-input textarea {
+    float: left;
+    width: 75%;
+    height: 48px;
+    vertical-align: baseline;
+}
+
+div#messenger div#message-input input#message-send-button {
+    float: right;
+    width: 20%;
+    vertical-align: baseline;
+}
+
+#message-error {
+    padding: 5px;
+    margin: 0 0 5px;
+    display: none;
+}
+
+/** Messenger in new window */
+div#im-body {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+}
+
+div#im-body h1 {
+    margin: 5px;
+    padding: 5px;
+}
+
+div#im-body div#messenger {
+    width: auto;
+    height: 80%;
+    min-height: 300px;
+}
+
+a#tooCool {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    display: block;
+    height: 80px;
+    width: 80px;
+    background: url(/images/too_cool_med.png) bottom right no-repeat;
+    text-indent: -999em;
+    text-decoration: none;
+}

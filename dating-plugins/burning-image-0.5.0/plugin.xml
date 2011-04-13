@@ -1,0 +1,29 @@
+<plugin name='burning-image' version='0.5.0' grailsVersion='1.2 &gt; *'>
+  <author>Pawel Gdula</author>
+  <authorEmail>pawel.gdula@burningice.pl</authorEmail>
+  <title>Burning Image</title>
+  <description>Image manipulation plugin</description>
+  <documentation>http://code.google.com/p/burningimage/</documentation>
+  <resources>
+    <resource>DataSource</resource>
+    <resource>UrlMappings</resource>
+    <resource>pl.burningice.plugins.image.DbContainerImageController</resource>
+    <resource>pl.burningice.plugins.image.ast.Image</resource>
+    <resource>pl.burningice.plugins.image.ast.test.TestDbContainerDomainFirst</resource>
+    <resource>pl.burningice.plugins.image.ast.test.TestDbContainerDomainSecond</resource>
+    <resource>pl.burningice.plugins.image.ast.test.TestDbContainerDomainThird</resource>
+    <resource>pl.burningice.plugins.image.ast.test.TestDomain</resource>
+    <resource>pl.burningice.plugins.image.ast.test.TestDomainSecond</resource>
+    <resource>pl.burningice.plugins.image.ast.test.Underscored_Test_Domain</resource>
+    <resource>pl.burningice.plugins.image.BurningImageService</resource>
+    <resource>pl.burningice.plugins.image.ImageUploadService</resource>
+    <resource>pl.burningice.plugins.image.ast.ImageService</resource>
+    <resource>pl.burningice.plugins.image.BurningImageTagLib</resource>
+  </resources>
+  <dependencies>
+    <resolvers>
+      <resolver type='grailsPlugins' name='grailsPlugins' />
+    </resolvers>
+  </dependencies>
+  <behavior />
+</plugin>
