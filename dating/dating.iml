@@ -31,6 +31,7 @@
       <sourceFolder url="file://$MODULE_DIR$/test/unit" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/test/integration" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/grails-app/jobs" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/.settings" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
       <excludeFolder url="file://$MODULE_DIR$/target/classes" />
       <excludeFolder url="file://$MODULE_DIR$/target/test-classes" />
@@ -46,6 +47,15 @@
           <root url="jar://$USER_HOME$/.ivy2/cache/org.springframework/org.springframework.test/jars/org.springframework.test-3.0.3.RELEASE.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.springframework.security/org.springframework.security.web/jars/org.springframework.security.web-3.0.4.RELEASE.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.springframework.security/org.springframework.security.core/jars/org.springframework.security.core-3.0.4.RELEASE.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.eclipse.jetty/jetty-continuation/jars/jetty-continuation-7.1.5.v20100705.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.eclipse.jetty/jetty-util/jars/jetty-util-7.1.5.v20100705.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.cometd.java/cometd-java-common/jars/cometd-java-common-2.0.0.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.cometd.java/bayeux-api/jars/bayeux-api-2.0.0.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.cometd.java/cometd-java-server/jars/cometd-java-server-2.0.0.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.eclipse.jetty/jetty-client/jars/jetty-client-7.1.5.v20100705.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.eclipse.jetty/jetty-http/jars/jetty-http-7.1.5.v20100705.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.eclipse.jetty/jetty-io/jars/jetty-io-7.1.5.v20100705.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.cometd.java/cometd-java-client/jars/cometd-java-client-2.0.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
