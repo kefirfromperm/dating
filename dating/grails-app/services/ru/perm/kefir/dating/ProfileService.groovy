@@ -11,9 +11,6 @@ import org.hibernate.criterion.Projections
 import org.hibernate.criterion.Restrictions
 import org.hibernate.type.StringType
 import org.hibernate.type.Type
-import ru.perm.kefir.dating.status.ProfileStatus
-import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.ConcurrentMap
 
 class ProfileService {
     private static final Type HIBERNATE_STRING_TYPE = new StringType();

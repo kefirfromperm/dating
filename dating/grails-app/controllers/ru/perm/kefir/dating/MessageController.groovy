@@ -122,7 +122,7 @@ class MessageController {
                 break;
             }
         }
-        DateFormat dateFormat = new SimpleDateFormat(message(code:'message.date.format', default:'MM-dd HH:mm:ss'));
+        DateFormat dateFormat = new SimpleDateFormat(message(code: 'message.date.format', default: 'MM-dd HH:mm:ss'));
         render(contentType: "text/json") {
             timestamp = lastMessageTimestamp;
             incoming = hasNew;
@@ -132,7 +132,7 @@ class MessageController {
                             date: dateFormat.format(m.date),
                             from: m.from.alias.encodeAsHTML(),
                             text: m.text.encodeAsHTML(),
-                            direction: m.from==current?'out':'in'
+                            direction: m.from == current ? 'out' : 'in'
                     ]);
                 }
             }
@@ -160,7 +160,7 @@ class MessageController {
                             date: dateFormat.format(m.date),
                             from: m.from.alias.encodeAsHTML(),
                             text: m.text.encodeAsHTML(),
-                            direction: m.from==current?'out':'in'
+                            direction: m.from == current ? 'out' : 'in'
                     ]);
                 }
             }
