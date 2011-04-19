@@ -56,7 +56,7 @@ class ProfileService {
             Long id = (Long) accountProfileCache.get(account.id)?.value;
             if (id) {
                 profile = Profile.get(id);
-                if (profile.account != account) {
+                if (profile==null || profile.account != account) {
                     accountProfileCache.remove(account.id);
                     profile = null;
                 }
@@ -81,7 +81,7 @@ class ProfileService {
         Long id = (Long) aliasProfileCache.get(alias)?.value;
         if (id) {
             profile = Profile.get(id);
-            if(profile.alias != alias){
+            if(profile==null || profile.alias != alias){
                 aliasProfileCache.remove(alias);
                 profile = null;
             }

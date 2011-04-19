@@ -247,7 +247,7 @@ class ProfileController {
     @Secured('ROLE_USER')
     def update = withManagedProfile {Profile profile ->
         if (params.version) {
-            def version = params.version.toLong()
+            def version = params.long('version')
             if (profile.version > version) {
                 profile.errors.rejectValue("version", "profile.optimistic.locking.failure", "Another user has updated this Profile while you were editing")
                 render(view: "edit", model: [profile: profile])
@@ -291,7 +291,7 @@ class ProfileController {
 
         // Check version
         if (params.version) {
-            def version = params.version.toLong()
+            def version = params.long('version');
             if (profile.version > version) {
                 profile.errors.rejectValue("version", "profile.optimistic.locking.failure", "Another user has updated this Profile while you were editing")
             }
@@ -333,7 +333,7 @@ class ProfileController {
     def deletePhoto = withManagedProfile {Profile profile ->
         // Check version
         if (params.version) {
-            def version = params.version.toLong()
+            def version = params.long('version');
             if (profile.version > version) {
                 profile.errors.rejectValue("version", "profile.optimistic.locking.failure", "Another user has updated this Profile while you were editing")
                 render(view: "photo", model: [profile: profile])
@@ -352,7 +352,7 @@ class ProfileController {
     def useGravatar = withManagedProfile {Profile profile ->
         // Check version
         if (params.version) {
-            def version = params.version.toLong()
+            def version = params.long('version');
             if (profile.version > version) {
                 profile.errors.rejectValue("version", "profilet.optimistic.locking.failure", "Another user has updated this Profile while you were editing");
                 render(view: "photo", model: [profile: profile]);
@@ -375,7 +375,7 @@ class ProfileController {
     @Secured('ROLE_USER')
     def delete = withManagedProfile {Profile profile ->
         String alias = profile.alias;
-        if (params.confirm == message('profile.delete.confirm.value')) {
+        if (params.confirm == message(code:'profile.delete.confirm.value')) {
             try {
                 profile.delete(flush: true)
                 flash.message = 'profile.deleted.message';
