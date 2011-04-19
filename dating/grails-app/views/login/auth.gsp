@@ -19,7 +19,9 @@
                     labelCode: 'login.rememberme.label', label: 'Remember me',
                     field:rememberMeParameter, value:true
     ]"/>
-        <g:submitButton name="login" value="${message(code:'login.label')}"/>
+        <div class="buttons">
+            <g:submitButton name="login" value="${message(code:'login.label')}"/>
+        </div>
     </g:form>
 </div>
 </body>

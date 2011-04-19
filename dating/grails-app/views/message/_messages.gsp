@@ -2,7 +2,10 @@
 <g:if test="${messages}">
     <g:each in="${messages}" var="message">
         <p>
-            <label><g:formatDate date="${message.date}"/> ${message.from.alias.encodeAsHTML()}:</label>
+            <label class="${currentProfile==message.from?'out':'in'}">
+                <g:formatDate date="${message.date}" formatName="message.date.format"/>
+                ${message.from.alias.encodeAsHTML()}:
+            </label>
             ${message.text.encodeAsHTML()}
         </p>
     </g:each>

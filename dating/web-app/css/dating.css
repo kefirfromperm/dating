@@ -228,6 +228,19 @@ div#photo-form {
     padding: 5px;
 }
 
+div#photo-form form{
+    margin: 0;
+    padding: 0;
+}
+div#photo-form p {
+    margin: 10px 5px;
+    padding: 5px;
+}
+
+div#photo-form p a {
+    margin-right: 10px;
+}
+
 /* Traffic lights */
 div#traffic-lights {
     float: left;
@@ -283,6 +296,23 @@ div#messenger div#message-list {
     margin: 0 0 5px;
 }
 
+div#messenger div#message-list p {
+    margin: 3px 0;
+    padding: 0;
+}
+
+div#messenger div#message-list p label{
+    font-weight: bold;
+}
+
+div#messenger div#message-list p label.in {
+    color:red;
+}
+
+div#messenger div#message-list p label.out {
+    color:blue;
+}
+
 div#messenger div#message-manage {
     padding: 0 5px;
     margin: 0 0 5px;
@@ -291,18 +321,19 @@ div#messenger div#message-manage {
 div#messenger div#message-input {
     width: 100%;
     height: 54px;
+    text-align: justify;
 }
 
 div#messenger div#message-input textarea {
     float: left;
-    width: 75%;
+    width: 70%;
     height: 48px;
     vertical-align: baseline;
 }
 
 div#messenger div#message-input input#message-send-button {
     float: right;
-    width: 20%;
+    max-width:75%;
     vertical-align: baseline;
 }
 

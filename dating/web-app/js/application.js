@@ -12,12 +12,12 @@ $(document).ready(function() {
     $('.js').show();
 
     // Add confirmation on links and buttons
-    $('.must-confirm').click(function(event){
+    $('.must-confirm').click(function(event) {
         return confirm($(event.target).attr('title'));
     });
 
     // Submit change locale form
-    $('form#lang select').change(function(event){
+    $('form#lang select').change(function(event) {
         $(event.target).parents('form').submit();
     });
 
@@ -33,7 +33,7 @@ $(document).ready(function() {
 /**
  * Init instant messenger
  */
-function initMessenger(){
+function initMessenger() {
     // Resize messenger in new window
     resizeMessenger();
 
@@ -77,7 +77,7 @@ function initMessenger(){
 
     // Submit by shift+enter
     $('#message-input form textarea').keypress(function(event) {
-        if (event.metaKey && event.which == 13) {
+        if ((event.metaKey || event.ctrlKey) && (event.which == 13 || event.which == 10)) {
             $('#message-input form').submit();
         }
     });
@@ -176,7 +176,8 @@ function loadBeforeMessages() {
 }
 
 function formatMessage(message) {
-    return '<p>' + '<label>' + message.date + ' ' + message.from + '</label>: ' + message.text + '</p>';
+    return '<p>' + '<label class="' + message.direction + '">' + message.date + ' ' + message.from + '</label>: '
+            + message.text + '</p>';
 }
 
 function updateBookmarks() {

@@ -1,10 +1,10 @@
 package ru.perm.kefir.dating
 
 import grails.plugins.springsecurity.Secured
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import javax.servlet.http.HttpServletRequest
 import org.apache.commons.lang.StringUtils
-import java.text.SimpleDateFormat
-import java.text.DateFormat
 
 @Secured('ROLE_USER')
 class MessageController {
@@ -122,7 +122,7 @@ class MessageController {
                 break;
             }
         }
-        DateFormat dateFormat = new SimpleDateFormat();
+        DateFormat dateFormat = new SimpleDateFormat(message(code:'message.date.format', default:'MM-dd HH:mm:ss'));
         render(contentType: "text/json") {
             timestamp = lastMessageTimestamp;
             incoming = hasNew;
@@ -131,7 +131,8 @@ class MessageController {
                     item([
                             date: dateFormat.format(m.date),
                             from: m.from.alias.encodeAsHTML(),
-                            text: m.text.encodeAsHTML()
+                            text: m.text.encodeAsHTML(),
+                            direction: m.from==current?'out':'in'
                     ]);
                 }
             }
@@ -158,7 +159,8 @@ class MessageController {
                     item([
                             date: dateFormat.format(m.date),
                             from: m.from.alias.encodeAsHTML(),
-                            text: m.text.encodeAsHTML()
+                            text: m.text.encodeAsHTML(),
+                            direction: m.from==current?'out':'in'
                     ]);
                 }
             }
