@@ -2,7 +2,7 @@ package ru.perm.kefir.dating
 
 /**
  * Retrieve last message between users
- * @author Vitaliy Samolovskih aka Kefir
+ * @author Vitalii Samolovskikh aka Kefir
  */
 class LastMessagesCommand {
     // Input parameters

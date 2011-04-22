@@ -5,7 +5,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
@@ -16,7 +15,7 @@ import ru.perm.kefir.dating.AccountService;
 /**
  * Authentication provider for mail authentication
  *
- * @author Vitaliy Samolovskih aka Kefir
+ * @author Vitalii Samolovskikh aka Kefir
  */
 public class MailAuthenticationProvider implements AuthenticationProvider {
     private AccountService accountService;

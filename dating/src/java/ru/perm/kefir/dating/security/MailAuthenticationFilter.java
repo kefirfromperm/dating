@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * AuthenticationFilter for mail authentication
  *
- * @author Vitaliy Samolovskih aka Kefir
+ * @author Vitalii Samolovskikh aka Kefir
  */
 public class MailAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
     public static final String LOGIN_URL = "/j_mail_check";

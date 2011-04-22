@@ -12,7 +12,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import ru.perm.kefir.dating.Account;
 
 /**
- * @author Vitaliy Samolovskih aka Kefir
+ * @author Vitalii Samolovskikh aka Kefir
  */
 public class DatingSaltSource implements SaltSource {
     private PlatformTransactionManager transactionManager;

@@ -4,7 +4,7 @@ import org.codehaus.groovy.grails.plugins.springsecurity.GrailsUser
 import org.springframework.security.core.GrantedAuthority
 
 /**
- * @author Vitaliy Samolovskih aka Kefir
+ * @author Vitalii Samolovskikh aka Kefir
  */
 class SaltedUserDetails extends GrailsUser {
     final String salt;

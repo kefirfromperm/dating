@@ -1,14 +1,14 @@
 package ru.perm.kefir.dating.security
 
 import org.codehaus.groovy.grails.plugins.springsecurity.GrailsUserDetailsService
-import org.springframework.security.core.authority.GrantedAuthorityImpl
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
+import org.springframework.security.core.authority.GrantedAuthorityImpl
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import ru.perm.kefir.dating.Account
 
 /**
- * @author Vitaliy Samolovskih aka Kefir
+ * @author Vitalii Samolovskikh aka Kefir
  */
 class DatingUserDetailsService implements GrailsUserDetailsService {
     static final List NO_ROLES = [new GrantedAuthorityImpl(SpringSecurityUtils.NO_ROLE)]

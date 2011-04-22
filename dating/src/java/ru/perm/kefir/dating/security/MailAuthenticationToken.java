@@ -10,7 +10,7 @@ import java.util.Collections;
 /**
  * Authentication token by email
  *
- * @author Vitaliy Samolovskih aka Kefir
+ * @author Vitalii Samolovskikh aka Kefir
  */
 public class MailAuthenticationToken extends AbstractAuthenticationToken {
     private final Object principal;

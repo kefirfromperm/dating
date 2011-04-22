@@ -3,7 +3,7 @@ package ru.perm.kefir.dating
 import javax.servlet.ServletRequest
 
 /**
- * @author Vitaliy Samolovskih aka Kefir
+ * @author Vitalii Samolovskikh aka Kefir
  */
 class DatingUtils {
     public static final CURRENT_ACCOUNT_ATTR_NAME = 'currentAccount'
