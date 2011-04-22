@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 /**
- * Authentication token by e-mail
+ * Authentication token by email
  *
  * @author Vitaliy Samolovskih aka Kefir
  */

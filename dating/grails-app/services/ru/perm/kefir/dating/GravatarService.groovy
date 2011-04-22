@@ -2,10 +2,10 @@ package ru.perm.kefir.dating
 
 import org.apache.http.HttpEntity
 import org.apache.http.HttpResponse
+import org.apache.http.HttpStatus
 import org.apache.http.client.HttpClient
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.impl.client.DefaultHttpClient
-import org.apache.http.HttpStatus
 
 class GravatarService {
     static transactional = false
@@ -25,7 +25,7 @@ class GravatarService {
                 entity.consumeContent();
             }
         } catch (Exception e) {
-            log.error("Error on get gravatar profile for e-mail \"${mail}\"", e);
+            log.error("Error on get gravatar profile for email \"${mail}\"", e);
         } finally {
             httpClient.getConnectionManager().shutdown();
         }
@@ -57,7 +57,7 @@ class GravatarService {
                 entity.consumeContent();
             }
         } catch (Exception e) {
-            log.error("Error on get gravatar profile for e-mail \"${mail}\"", e);
+            log.error("Error on get gravatar profile for email \"${mail}\"", e);
         } finally {
             httpClient.getConnectionManager().shutdown();
         }

@@ -6,6 +6,8 @@
     <title><g:message code="account.registration.success.label" default="Registration success"/></title>
 </head>
 <body>
-<g:message code="account.registration.success.message" args="[flash.mail?.encodeAsHTML()]" />
+    <div id="success-registration">
+        <g:message code="account.registration.success.message" args="[flash.mail?.encodeAsHTML()]" />
+    </div>
 </body>
 </html>

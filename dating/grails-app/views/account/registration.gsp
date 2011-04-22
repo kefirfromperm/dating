@@ -10,7 +10,7 @@
 <div class="form">
     <g:form action="apply" method="POST">
         <g:render template="/form/textField" model="[
-                labelCode: 'account.registration.mail.label', label: 'Enter your e-mail',
+                labelCode: 'account.registration.mail.label', label: 'Enter your email',
                 required: true, field:'mail', bean:account, size:'medium', maxLength:320
                 ]"/>
         <g:render template="/form/globalErrors" bean="${account}"/>

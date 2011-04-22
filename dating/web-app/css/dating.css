@@ -172,6 +172,12 @@ input.big, select.big, textarea.big {
     width: 640px;
 }
 
+/**  */
+#success-registration{
+    margin: 10px 0 0;
+    padding: 5px;
+}
+
 /** Show and list profile */
 div#search-result {
     float: left;

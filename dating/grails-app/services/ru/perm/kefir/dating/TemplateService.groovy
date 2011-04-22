@@ -9,10 +9,14 @@ class TemplateService {
 
     FreeMarkerConfigurationFactory freemarkerConfig;
 
-    String process(String name, Object params){
-        Template template = freemarkerConfig.createConfiguration().getTemplate(name+'.ftl');
+    String process(String name, Object params, Locale locale) {
+        Template template = template(name, locale);
         CharArrayWriter writer = new CharArrayWriter();
         template.process(params, writer);
         return writer.toString();
+    }
+
+    private Template template(String name, Locale locale) {
+        return  freemarkerConfig.createConfiguration().getTemplate("${name}.ftl", locale?:Locale.ENGLISH);
     }
 }

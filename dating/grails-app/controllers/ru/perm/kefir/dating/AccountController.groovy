@@ -1,10 +1,11 @@
 package ru.perm.kefir.dating
 
-import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
-import grails.plugins.springsecurity.SpringSecurityService
 import grails.plugins.springsecurity.Secured
+import grails.plugins.springsecurity.SpringSecurityService
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 import org.codehaus.groovy.grails.validation.Validateable
+import org.springframework.web.servlet.support.RequestContextUtils
 
 class AccountController {
     static allowedMethods = [apply: "POST", update: "POST", delete: "POST"]
@@ -52,7 +53,7 @@ class AccountController {
 
         if (!account.locked) {
             // Send message to restore account
-            accountService.restore(account);
+            accountService.restore(account, RequestContextUtils.getLocale(request));
             flash.mail = account.mail;
             redirect(action: 'success');
         } else {

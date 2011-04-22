@@ -6,11 +6,7 @@
     <title>Show Asynchronous Mail Message</title>
 </head>
 <body>
-<div class="nav">
-    <span class="menuButton"><a class="home" href="${resource(dir: '')}">Home</a></span>
-    <span class="menuButton"><g:link class="list" action="list">List</g:link></span>
-</div>
-<div class="body">
+<div><g:link class="list" action="list">Message list</g:link></div>
     <h1>Show Asynchronous Mail Message</h1>
     <g:if test="${flash.message}">
         <div class="message">${flash.message}</div>
@@ -151,6 +147,5 @@
             </g:if>
         </g:form>
     </div>
-</div>
 </body>
 </html>

@@ -21,6 +21,7 @@
     ]"/>
         <div class="buttons">
             <g:submitButton name="login" value="${message(code:'login.label')}"/>
+            <g:link controller="account" action="registration"><g:message code="account.password.forgot" default="Forgot your password?"/></g:link>
         </div>
     </g:form>
 </div>

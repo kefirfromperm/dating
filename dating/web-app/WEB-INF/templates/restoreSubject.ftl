@@ -1,1 +1,1 @@
-Регистрация или восстановление пароля
+Registration or password recovery

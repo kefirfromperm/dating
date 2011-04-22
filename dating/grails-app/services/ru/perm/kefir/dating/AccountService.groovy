@@ -1,6 +1,7 @@
 package ru.perm.kefir.dating
 
 import grails.plugins.springsecurity.SpringSecurityService
+import grails.util.Environment
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 import ru.perm.kefir.asynchronousmail.AsynchronousMailService
 import ru.perm.kefir.dating.security.MailAuthenticationFilter
@@ -15,7 +16,7 @@ class AccountService {
     /**
      * Restore password. Generate new code and send mail message.
      */
-    def restore(Account account){
+    def restore(Account account, Locale locale){
         String code = generateCode();
         account.confirmCode = encode(code);
         account.save(flush:true);
@@ -24,12 +25,13 @@ class AccountService {
         asynchronousMailService.sendAsynchronousMail {
             to account.mail
             Map params = [url:confirmUrl];
-            subject templateService.process("restoreSubject", params);
-            html templateService.process("restoreBody", params);
+            subject templateService.process("restoreSubject", params, locale);
+            html templateService.process("restoreBody", params, locale);
             immediate true
 
-            // Uncomment when for production
-            //delete true
+            if(Environment.current == Environment.PRODUCTION){
+                delete true;
+            }
         }
     }
 
