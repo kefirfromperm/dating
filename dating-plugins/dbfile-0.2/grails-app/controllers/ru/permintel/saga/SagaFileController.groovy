@@ -1,8 +1,8 @@
 package ru.permintel.saga
 
+import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import org.apache.commons.lang.StringUtils
-import javax.servlet.http.HttpServletRequest
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
 class SagaFileController {
@@ -18,8 +18,8 @@ class SagaFileController {
     }
 
     def download = withInstance {SagaFile file ->
-        if(ConfigurationHolder.config.g2b.cache.dir){
-            File fs = new File(ConfigurationHolder.config.g2b.cache.dir as String, file.id.toString());
+        if(ConfigurationHolder.config.saga.file.cache.dir){
+            File fs = new File(ConfigurationHolder.config.saga.file.cache.dir as String, file.id.toString());
             if(!fs.exists()){
                 fs.createNewFile();
                 OutputStream os = new FileOutputStream(fs);

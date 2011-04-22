@@ -30,5 +30,11 @@ grails.project.dependency.resolution = {
     }
 }
 
+// Remove the JDBC jar before the war is bundled
+grails.war.resources = {stagingDir ->
+    delete(file: "${stagingDir}/WEB-INF/lib/postgresql-9.0-801.jdbc4.jar");
+    delete(file: "${stagingDir}/WEB-INF/lib/jmagick.jar");
+}
+
 // Grails plugin home
 grails.project.plugins.dir='../dating-plugins'

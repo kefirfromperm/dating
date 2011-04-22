@@ -15,19 +15,19 @@ import grails.plugins.springsecurity.SecurityConfigType
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
 grails.mime.file.extensions = true // enables the parsing of file extensions from URLs into the request format
 grails.mime.use.accept.header = false
-grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
-                      xml: ['text/xml', 'application/xml'],
-                      text: 'text/plain',
-                      js: 'text/javascript',
-                      rss: 'application/rss+xml',
-                      atom: 'application/atom+xml',
-                      css: 'text/css',
-                      csv: 'text/csv',
-                      all: '*/*',
-                      json: ['application/json','text/json'],
-                      form: 'application/x-www-form-urlencoded',
-                      multipartForm: 'multipart/form-data'
-                    ]
+grails.mime.types = [html: ['text/html', 'application/xhtml+xml'],
+        xml: ['text/xml', 'application/xml'],
+        text: 'text/plain',
+        js: 'text/javascript',
+        rss: 'application/rss+xml',
+        atom: 'application/atom+xml',
+        css: 'text/css',
+        csv: 'text/csv',
+        all: '*/*',
+        json: ['application/json', 'text/json'],
+        form: 'application/x-www-form-urlencoded',
+        multipartForm: 'multipart/form-data'
+]
 
 // URL Mapping Cache Max Size, defaults to 5000
 //grails.urlmapping.cache.maxsize = 1000
@@ -72,26 +72,26 @@ log4j = {
     //appenders {
     //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
     //}
-    root{
+    root {
         warn()
     }
 
-    error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
-           'org.codehaus.groovy.grails.web.pages', //  GSP
-           'org.codehaus.groovy.grails.web.sitemesh', //  layouts
-           'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
-           'org.codehaus.groovy.grails.web.mapping', // URL mapping
-           'org.codehaus.groovy.grails.commons', // core / classloading
-           'org.codehaus.groovy.grails.plugins', // plugins
-           'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
-           'org.springframework',
-           'org.hibernate',
-           'net.sf.ehcache.hibernate'
+    error 'org.codehaus.groovy.grails.web.servlet',  //  controllers
+            'org.codehaus.groovy.grails.web.pages', //  GSP
+            'org.codehaus.groovy.grails.web.sitemesh', //  layouts
+            'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
+            'org.codehaus.groovy.grails.web.mapping', // URL mapping
+            'org.codehaus.groovy.grails.commons', // core / classloading
+            'org.codehaus.groovy.grails.plugins', // plugins
+            'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
+            'org.springframework',
+            'org.hibernate',
+            'net.sf.ehcache.hibernate'
 
-    warn   'org.mortbay.log'
+    warn 'org.mortbay.log'
 
     // My classes
-    debug   'grails.app.controller.ru.perm.kefir.dating.MessageController',
+    debug 'grails.app.controller.ru.perm.kefir.dating.MessageController',
             'dating.LogFilters'
 }
 
@@ -101,7 +101,7 @@ grails.validateable.packages = ['ru.perm.kefir.dating']
 // Spring Security configuration
 grails.plugins.springsecurity.active = true
 
-/** login user class fields*/
+/** login user class fields  */
 grails.plugins.springsecurity.userLookup.userDomainClassName = "ru.perm.kefir.dating.Account"
 grails.plugins.springsecurity.userLookup.usernamePropertyName = 'mail'
 grails.plugins.springsecurity.userLookup.passwordPropertyName = 'passwordDigest'
@@ -120,7 +120,7 @@ grails.plugins.springsecurity.dao.reflectionSaltSourceProperty = 'salt'
 // Default URL after authentication
 grails.plugins.springsecurity.successHandler.defaultTargetUrl = '/profile/show'
 
-    // We use annotations access control
+// We use annotations access control
 grails.plugins.springsecurity.securityConfigType = SecurityConfigType.Annotation
 
 // Prevent session-fixation attack
@@ -136,10 +136,9 @@ grails.plugins.springsecurity.providerNames = [
 grails.plugins.springsecurity.useSwitchUserFilter = true
 
 grails.plugins.springsecurity.filterChain.chainMap = [
-   '/j_mail_check': 'securityContextPersistenceFilter,mailAuthenticationFilter,anonymousAuthenticationFilter,exceptionTranslationFilter,filterInvocationInterceptor',
-   '/**': 'JOINED_FILTERS',
+        '/j_mail_check': 'securityContextPersistenceFilter,mailAuthenticationFilter,anonymousAuthenticationFilter,exceptionTranslationFilter,filterInvocationInterceptor',
+        '/**': 'JOINED_FILTERS',
 ]
-
 
 // Mail configuration
 environments {
@@ -155,6 +154,24 @@ environments {
         grails.mail.host = "localhost"
         grails.mail.props = ["mail.transport.protocol": "smtp"]
         grails.mail.default.from = "post@dating.ru"
+    }
+}
+
+// Burning image configuration
+environments {
+    production {
+        bi.renderingEngine = RenderingEngine.IMAGE_MAGICK
+    }
+}
+
+// Saga files
+environments {
+    development {
+        saga.file.cache.dir = 'd:/tmp/dating'
+    }
+    production {
+        saga.file.cache.dir = 'd:/tmp/dating'
+        grails.plugins.sendfile.tomcat = true
     }
 }
 
