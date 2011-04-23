@@ -1,4 +1,4 @@
-import ru.perm.kefir.dating.Role
+import com.greetim.Role
 
 class BootStrap {
     def init = { servletContext ->

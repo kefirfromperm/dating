@@ -1,4 +1,4 @@
-<%@ page import="ru.perm.kefir.dating.Light" contentType="text/html;charset=UTF-8" %>
+<%@ page import="com.greetim.Light" contentType="text/html;charset=UTF-8" %>
 <g:if test="${light==Light.GREEN}">
     <img src="${resource(dir:'images', file:'gray.png')}" alt=""/>
     <img src="${resource(dir:'images', file:'gray.png')}" alt=""/>

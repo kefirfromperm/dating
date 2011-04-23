@@ -1,13 +1,13 @@
+import com.greetim.security.DatingUserDetailsService
+import com.greetim.security.MailAuthenticationFilter
+import com.greetim.security.MailAuthenticationProvider
+import com.greetim.template.BbDirective
 import freemarker.template.utility.XmlEscape
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer
-import ru.perm.kefir.dating.security.MailAuthenticationFilter
-import ru.perm.kefir.dating.security.MailAuthenticationProvider
-import ru.perm.kefir.dating.template.BbDirective
-import ru.perm.kefir.dating.security.DatingUserDetailsService
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler
 import org.springframework.cache.ehcache.EhCacheFactoryBean
 import org.springframework.cache.ehcache.EhCacheManagerFactoryBean
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer
 
 // Place your Spring DSL code here
 beans = {

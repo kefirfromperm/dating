@@ -35,14 +35,14 @@
     <!-- Per class caches -->
 
     <cache
-            name="ru.perm.kefir.dating.Role"
+            name="com.greetim.Role"
             maxElementsInMemory="16"
             eternal="true"
             overflowToDisk="false"
             />
 
     <cache
-            name="ru.perm.kefir.dating.Account"
+            name="com.greetim.Account"
             maxElementsInMemory="1000"
             eternal="false"
             timeToIdleSeconds="300"
@@ -52,7 +52,7 @@
             />
 
     <cache
-            name="ru.perm.kefir.dating.Profile"
+            name="com.greetim.Profile"
             maxElementsInMemory="10000"
             eternal="false"
             timeToIdleSeconds="300"
@@ -72,7 +72,7 @@
             />
 
     <cache
-            name="ru.perm.kefir.dating.Bookmark"
+            name="com.greetim.Bookmark"
             maxElementsInMemory="10000"
             eternal="false"
             timeToIdleSeconds="120"

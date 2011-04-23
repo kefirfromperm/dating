@@ -54,7 +54,7 @@ grails.spring.bean.packages = []
 // set per-environment serverURL stem for creating absolute links
 environments {
     production {
-        grails.serverURL = "http://www.changeme.com"
+        grails.serverURL = "http://greetim.com"
     }
     development {
         grails.serverURL = "http://localhost:8080/${appName}"
@@ -92,25 +92,25 @@ log4j = {
     warn 'org.mortbay.log'
 
     // My classes
-    debug 'grails.app.controller.ru.perm.kefir.dating.MessageController',
+    debug 'grails.app.controller.com.greetim.MessageController',
             'dating.LogFilters'
 }
 
 // Validation for non domain classes
-grails.validateable.packages = ['ru.perm.kefir.dating']
+grails.validateable.packages = ['com.greetim']
 
 // Spring Security configuration
 grails.plugins.springsecurity.active = true
 
 /** login user class fields  */
-grails.plugins.springsecurity.userLookup.userDomainClassName = "ru.perm.kefir.dating.Account"
+grails.plugins.springsecurity.userLookup.userDomainClassName = "com.greetim.Account"
 grails.plugins.springsecurity.userLookup.usernamePropertyName = 'mail'
 grails.plugins.springsecurity.userLookup.passwordPropertyName = 'passwordDigest'
 grails.plugins.springsecurity.userLookup.authoritiesPropertyName = 'roles'
 grails.plugins.springsecurity.userLookup.enabledPropertyName = 'enabled'
 grails.plugins.springsecurity.userLookup.accountLockedPropertyName = 'locked'
 
-grails.plugins.springsecurity.authority.className = "ru.perm.kefir.dating.Role"
+grails.plugins.springsecurity.authority.className = "com.greetim.Role"
 grails.plugins.springsecurity.authority.nameField = 'authority'
 
 // Cache options
@@ -154,7 +154,7 @@ environments {
         // Mail configuration
         grails.mail.host = "localhost"
         grails.mail.props = ["mail.transport.protocol": "smtp"]
-        grails.mail.default.from = "post@dating.ru"
+        grails.mail.default.from = "noreply@greetim.com"
     }
 }
 
@@ -171,8 +171,8 @@ environments {
         saga.file.cache.dir = 'd:/tmp/dating'
     }
     production {
-        saga.file.cache.dir = 'd:/tmp/dating'
-        grails.plugins.sendfile.tomcat = true
+        saga.file.cache.dir = '/home/dating/files'
+        grails.plugins.sendfile.nginx = true
     }
 }
 

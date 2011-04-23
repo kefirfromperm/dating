@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="ru.perm.kefir.dating.Account" %>
+<%@ page import="com.greetim.Account" %>
 <html>
 <head>
     <meta name="layout" content="main"/>

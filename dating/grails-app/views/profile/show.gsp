@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="ru.perm.kefir.dating.BookmarkStatus" %>
+<%@ page import="com.greetim.BookmarkStatus" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
