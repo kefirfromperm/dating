@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="path" content="${request.contextPath}"/>
-    <title><g:layoutTitle default="Welcome!"/>&nbsp;&mdash;&nbsp;<g:message code="app.name"/></title>
+    <title><g:layoutTitle default="Welcome!"/>&nbsp;&mdash;&nbsp;<g:message code="app.name" default="Greetim"/></title>
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'dating.css')}"/>
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
     <g:javascript src="jquery/jquery-1.5.min.js"/>

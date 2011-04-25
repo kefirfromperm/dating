@@ -73,6 +73,10 @@ log4j = {
     //appenders {
     //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
     //}
+    appenders {
+        'null' name: "stacktrace"
+    }
+
     root {
         warn()
     }
@@ -90,10 +94,6 @@ log4j = {
             'net.sf.ehcache.hibernate'
 
     warn 'org.mortbay.log'
-
-    // My classes
-    debug 'grails.app.controller.com.greetim.MessageController',
-            'dating.LogFilters'
 }
 
 // Validation for non domain classes
