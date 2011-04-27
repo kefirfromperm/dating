@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /search
+Disallow: /luck
+Disallow: /im/
+Disallow: /account/
+Disallow: /profile/index
+Disallow:
+Disallow:
+Disallow:

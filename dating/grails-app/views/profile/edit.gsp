@@ -16,6 +16,11 @@
         <div class="buttons">
             <g:submitButton name="save" value="${message(code: 'default.button.update.label', default: 'Update')}"/>
         </div>
+        <g:if test="${currentProfile!=null && profile.id==currentProfile.id}">
+            <div class="buttons">
+                <g:link controller="profile" action="confirmDelete"><g:message code="profile.delete.button.label"/></g:link>
+            </div>
+        </g:if>
     </g:form>
 </div>
 </body>

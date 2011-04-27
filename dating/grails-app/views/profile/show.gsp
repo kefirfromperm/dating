@@ -29,10 +29,6 @@
         <g:link controller="profile" action="photo" id="${profile.id}"><g:message code="profile.upload.photo.button.label" /></g:link>
     </g:if>
 
-    <g:if test="${currentProfile!=null && profile.id==currentProfile.id}">
-        <g:link controller="profile" action="confirmDelete"><g:message code="profile.delete.button.label" /></g:link>
-    </g:if>
-
     <sec:ifAllGranted roles="ROLE_ADMIN">
         <g:link controller="account" action="show" id="${profile.account.id}"><g:message code="account.link.label" /></g:link>
         <g:link controller="profile" action="deleteAndLock" id="${profile.id}"
