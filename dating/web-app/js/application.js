@@ -129,6 +129,7 @@ function loadLastMessages() {
             path + '/message/last',
     {'profile.id':profileId, timestamp:timestamp},
             function(data) {
+                timestamp = $('#message-list input[name="endTimestamp"]').val();
                 if (data.timestamp > timestamp && data.messages && data.messages.length > 0) {
                     $('#message-list input[name="endTimestamp"]').val(data.timestamp);
 
@@ -156,6 +157,7 @@ function loadBeforeMessages() {
             path + '/message/before',
     {'profile.id':profileId, timestamp:timestamp},
             function(data) {
+                timestamp = $('#message-list input[name="beginTimestamp"]').val();
                 if (data.timestamp < timestamp) {
                     $('#message-list input[name="beginTimestamp"]').val(data.timestamp);
 
@@ -181,9 +183,14 @@ function formatMessage(message) {
 }
 
 function updateBookmarks() {
-    $.get(path + '/bookmark/content', function(data) {
-        $('#bookmarks').html(data);
-    }, 'html');
+    $.get(
+            path + '/bookmark/content',
+            {timestamp:$('#bookmarks input[name="timestamp"]').val()},
+            function(data) {
+                $('#bookmarks').html(data);
+            },
+            'html'
+            );
 }
 
 function scrollDownMessageArea() {

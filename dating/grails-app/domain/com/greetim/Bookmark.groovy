@@ -9,8 +9,12 @@ class Bookmark {
     BookmarkStatus status = BookmarkStatus.NEUTRAL;
     int incoming = 0;
 
+    // Auto timestamp
+    Date dateCreated;
+    Date lastUpdated;
+
     static mapping = {
-        cache usage:'read-write';
+        cache usage: 'read-write';
     }
 
     static belongsTo = [owner: Profile, target: Profile];

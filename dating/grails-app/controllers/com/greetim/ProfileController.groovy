@@ -30,10 +30,7 @@ class ProfileController {
     def bookmarks(model) {
         Profile current = DatingUtils.currentProfile(request);
         if (current) {
-            model.putAll([
-                    bookmarks: bookmarkService.confirmed(current),
-                    incomings: bookmarkService.incoming(current)
-            ]);
+            model.putAll(bookmarkService.bookmarkModel(current));
         }
     }
 

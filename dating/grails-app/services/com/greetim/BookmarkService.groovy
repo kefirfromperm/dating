@@ -45,4 +45,23 @@ class BookmarkService {
                 [owner: profile, status: BookmarkStatus.NEUTRAL]
         )
     }
+
+    /**
+     * Create bookmark model
+     */
+    public Map bookmarkModel(Profile profile) {
+        List<Bookmark> confirmed = confirmed(profile);
+        List<Bookmark> incoming = incoming(profile);
+
+        long bookmarkTimestamp = Math.max(
+                confirmed*.lastUpdated.max()?.getTime()?:0,
+                incoming*.lastUpdated.max()?.getTime()?:0
+        );
+
+        return [
+                bookmarkTimestamp: bookmarkTimestamp,
+                bookmarks: confirmed,
+                incomings: incoming
+        ];
+    }
 }

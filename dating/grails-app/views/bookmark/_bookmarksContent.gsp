@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
+<g:if test="${bookmarkTimestamp}"><input type="hidden" name="timestamp" value="${bookmarkTimestamp}"/></g:if>
 <h2><g:message code="bookmark.label" /></h2>
 <g:if test="${bookmarks}">
     <g:render template="/bookmark/bookmark" collection="${bookmarks}" var="bookmark"/>
