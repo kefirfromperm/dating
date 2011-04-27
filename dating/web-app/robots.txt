@@ -4,6 +4,4 @@ Disallow: /luck
 Disallow: /im/
 Disallow: /account/
 Disallow: /profile/index
-Disallow:
-Disallow:
-Disallow:
+Host: greetim.com
