@@ -78,7 +78,7 @@ log4j = {
     }
 
     root {
-        warn()
+        error()
     }
 
     error 'org.codehaus.groovy.grails.web.servlet',  //  controllers
