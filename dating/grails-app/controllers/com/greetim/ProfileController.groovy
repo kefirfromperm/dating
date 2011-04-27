@@ -90,7 +90,7 @@ class ProfileController {
         } else {
             // Last registered
             if (params.sort == null) {
-                params.sort = 'createDate';
+                params.sort = 'dateCreated';
                 params.order = 'desc';
             }
             total = Profile.count();
@@ -154,7 +154,7 @@ class ProfileController {
 
         def profile = new Profile(params);
         profile.setAccount(DatingUtils.currentAccount(request));
-        profile.createDate = new Date();
+        profile.dateCreated = new Date();
 
         if (profile.save(flush: true)) {
             flash.message = 'profile.created.message';
@@ -252,7 +252,7 @@ class ProfileController {
             }
         }
 
-        bindData(profile, params, [exclude: ['createDate', 'account', 'photo']]);
+        bindData(profile, params, [exclude: ['dateCreated', 'account', 'photo']]);
 
         if (!profile.hasErrors() && profile.save(flush: true)) {
             flash.message = 'profile.updated.message';

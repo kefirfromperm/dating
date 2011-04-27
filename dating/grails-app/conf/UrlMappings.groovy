@@ -19,6 +19,9 @@ class UrlMappings {
             }
         }
 
+        // Sitemap
+        "/sitemap.xml"(controller:'sitemap');
+
         "/"(controller:'profile', action:'index');
         "500"(view: '/error');
     }

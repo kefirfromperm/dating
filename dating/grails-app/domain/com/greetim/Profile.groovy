@@ -11,9 +11,6 @@ class Profile {
     // link to account
     Account account;
 
-    // Create date
-    Date createDate = new Date();
-
     // Alias for link to profile
     String alias;
 
@@ -25,6 +22,10 @@ class Profile {
     SagaFile photo;
     boolean useGravatar = false;
 
+    // Auto timestamp
+    Date dateCreated;
+    Date lastUpdated;
+
     static mapping = {
         about type: 'text';
         cache usage: 'nonstrict-read-write';
@@ -33,7 +34,6 @@ class Profile {
 
     static constraints = {
         account(nullable: false, unique: true);
-        createDate(nulable: false);
         alias(nullable: false, blank: false, size: 1..63, matches: ALIAS_REGEX);
         name(nullable: false, blank: false, maxSize: 255);
         about(nullable: true, blank: true, maxSize: 4095);

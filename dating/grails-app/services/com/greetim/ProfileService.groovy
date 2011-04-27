@@ -105,7 +105,7 @@ class ProfileService {
             Criteria c = createFullTextSearchCriteria(session, query);
 
             // Sort order
-            c.addOrder(Order.desc('createDate'));
+            c.addOrder(Order.desc('dateCreated'));
 
             // Paginate
             if (paginate.max) {
