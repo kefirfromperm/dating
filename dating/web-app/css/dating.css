@@ -56,6 +56,16 @@ div#body {
     display: none;
 }
 
+/** Paginate */
+div.paginate {
+    margin: 5px;
+    padding: 5px;
+}
+
+div.paginate a, span.currentStep {
+    padding: 0 5px;
+}
+
 /* Header */
 div#header {
     height: 22px;

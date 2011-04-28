@@ -7,7 +7,7 @@
 </head>
 <body>
 <div id="search-result">
-    <h1><g:message code="profile.list.label" /></h1>
+    <h1><g:message code="profile.list.label"/></h1>
     <table>
         <tbody>
         <g:each in="${list}" status="i" var="profile">
@@ -22,12 +22,14 @@
         </g:each>
         </tbody>
     </table>
-    <div class="paginate">
-        <g:paginate total="${total}"/>
-    </div>
+    <g:if test="${total>params.max}">
+        <div class="paginate">
+            <g:paginate total="${total}"/>
+        </div>
+    </g:if>
 </div>
 <g:if test="${currentProfile!=null}">
-<g:render template="/bookmark/bookmarks"/>
+    <g:render template="/bookmark/bookmarks"/>
 </g:if>
 </body>
 </html>
