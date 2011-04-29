@@ -3,6 +3,7 @@ package com.greetim
 import grails.plugins.springsecurity.Secured
 import grails.plugins.springsecurity.SpringSecurityService
 import org.apache.commons.lang.StringUtils
+import org.apache.commons.validator.UrlValidator
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartRequest
@@ -10,9 +11,19 @@ import pl.burningice.plugins.image.BurningImageService
 import pl.burningice.plugins.image.container.SaveCommand
 import ru.permintel.saga.SagaFile
 import ru.permintel.saga.SagaFileService
+import org.apache.http.client.HttpClient
+import org.apache.http.impl.client.DefaultHttpClient
+import org.apache.http.client.methods.HttpGet
+import org.apache.http.HttpResponse
+import org.apache.http.HttpEntity
+import org.apache.http.HttpStatus
+import org.apache.commons.io.IOUtils
+import org.apache.commons.io.FileUtils
+
 
 class ProfileController {
     static allowedMethods = [save: "POST", update: "POST", uploadPhoto: 'POST', delete: "POST"]
+    private static final int MAX_PHOTO_SIZE = 8 * 1024 * 1024
     def afterInterceptor = [action: this.&bookmarks, only: ['show', 'list']];
 
     ProfileService profileService;
@@ -274,16 +285,70 @@ class ProfileController {
         // Check if request is multipart
         if (request instanceof MultipartRequest) {
             mpf = request.getFile('photo');
-        } else {
-            profile.errors.rejectValue('photo', 'profile.photo.not.multipart', 'Error!');
         }
 
         // Check file content
-        if (mpf == null || mpf.empty || !mpf.contentType.startsWith('image')) {
+        if (mpf != null && !mpf.empty && !mpf.contentType.startsWith('image')) {
             profile.errors.rejectValue(
                     'photo', 'profile.photo.content.invalid',
-                    'File is empty or content type is not accessible!'
+                    'Content type is not accessible!'
             );
+        }
+
+        if ((mpf == null || mpf.empty) && !(new UrlValidator().isValid(params.url))) {
+            profile.errors.rejectValue(
+                    'photo', 'profile.photo.empty',
+                    'Select picture!'
+            );
+        }
+
+        // Download photo
+        boolean uploadedPhoto = false;
+        File file = new File(System.getProperty("java.io.tmpdir"), UUID.randomUUID().toString());
+        String contentType = 'image/';
+        if ((mpf == null || mpf.empty) && !profile.hasErrors()) {
+            HttpClient httpClient = new DefaultHttpClient();
+            try {
+                HttpGet get = new HttpGet((String) params.url);
+                HttpResponse response = httpClient.execute(get);
+                int code = response.getStatusLine().statusCode;
+                HttpEntity entity = response.getEntity();
+                if (entity) {
+                    if (code == HttpStatus.SC_OK) {
+                        contentType = entity.contentType;
+                        if (
+                            contentType.startsWith("image") &&
+                                    (entity.contentLength==null || entity.contentLength < MAX_PHOTO_SIZE)
+                        ) {
+                            OutputStream stream = new BufferedOutputStream(new FileOutputStream(file));
+                            try {
+                                IOUtils.copy(entity.content, stream);
+                            } finally {
+                                stream.close();
+                            }
+                        } else {
+                            profile.errors.rejectValue(
+                                    'photo', 'profile.photo.too.big', [MAX_PHOTO_SIZE].toArray(),
+                                    'Picture is too big!'
+                            );
+                        }
+                    }
+                    entity.consumeContent();
+                }
+
+                if (file.size() < MAX_PHOTO_SIZE) {
+                    uploadedPhoto = true;
+                } else {
+                    profile.errors.rejectValue(
+                            'photo', 'profile.photo.too.big', [MAX_PHOTO_SIZE].toArray(),
+                            'Picture is too big!'
+                    );
+                }
+            } catch (Exception e) {
+                log.error("Error on get gravatar profile for email \"${mail}\"", e);
+            } finally {
+                httpClient.getConnectionManager().shutdown();
+            }
         }
 
         // Check version
@@ -297,21 +362,38 @@ class ProfileController {
         // Upload and scale image
         if (!profile.hasErrors()) {
             try {
-                PhotoCommand command = new PhotoCommand();
-                command.sagaFileService = sagaFileService;
-                command.multipartFile = mpf;
-                burningImageService.doWith(mpf).execute(command, {
-                    it.scaleApproximate(
-                            grailsApplication.config.dating.photo.horizontal.size,
-                            grailsApplication.config.dating.photo.vertical.size
-                    );
-                });
-                profile.photo = command.file;
+                if (!uploadedPhoto) {
+                    PhotoCommand command = new PhotoCommand();
+                    command.sagaFileService = sagaFileService;
+                    command.multipartFile = mpf;
+                    burningImageService.doWith(mpf).execute(command, {
+                        it.scaleApproximate(
+                                grailsApplication.config.dating.photo.horizontal.size,
+                                grailsApplication.config.dating.photo.vertical.size
+                        );
+                    });
+                    profile.photo = command.file;
+                } else {
+                    UrlPhotoCommand command = new UrlPhotoCommand();
+                    command.sagaFileService = sagaFileService;
+                    command.contentType = contentType;
+                    burningImageService.doWith(file.absolutePath, '/').execute(command, {
+                        it.scaleApproximate(
+                                grailsApplication.config.dating.photo.horizontal.size,
+                                grailsApplication.config.dating.photo.vertical.size
+                        );
+                    });
+                    profile.photo = command.file;
+                }
                 profile.useGravatar = false;
             } catch (Exception e) {
                 log.error('Can\'t scale image.', e);
                 profile.errors.rejectValue('photo', 'profile.photo.content.invalid', 'Error!');
             }
+        }
+
+        if (file != null && file.exists()) {
+            file.delete();
         }
 
         // Save profile
@@ -372,7 +454,7 @@ class ProfileController {
     @Secured('ROLE_USER')
     def delete = withManagedProfile {Profile profile ->
         String alias = profile.alias;
-        if (params.confirm == message(code:'profile.delete.confirm.value')) {
+        if (params.confirm == message(code: 'profile.delete.confirm.value')) {
             try {
                 profile.delete(flush: true)
                 flash.message = 'profile.deleted.message';
@@ -427,6 +509,22 @@ class PhotoCommand implements SaveCommand {
     void execute(byte[] source, String extension) {
         file = sagaFileService.save(
                 [name: multipartFile.originalFilename, mimetype: multipartFile.contentType, content: source]
+        );
+    }
+}
+
+/**
+ * Command for save photo
+ */
+class UrlPhotoCommand implements SaveCommand {
+    SagaFile file;
+    SagaFileService sagaFileService;
+    String contentType;
+
+    @Override
+    void execute(byte[] source, String extension) {
+        file = sagaFileService.save(
+                [name: 'photo', mimetype: contentType ?: 'image', content: source]
         );
     }
 }

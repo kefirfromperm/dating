@@ -18,7 +18,11 @@
             <g:render template="/form/fieldErrors" model="[bean:profile, field:'version']"/>
             <g:render template="/form/fileField" model="[
                 labelCode: 'profile.photo.label', label: 'File',
-                required: true, field:'photo', bean:profile
+                required: false, field:'photo', bean:profile
+            ]"/>
+            <g:render template="/form/textField" model="[
+                    labelCode: 'profile.photo.label1', label: 'URL',
+                    required: false, field:'url', size:'medium', maxLength:2048
             ]"/>
             <g:render template="/form/globalErrors" bean="${profile}"/>
             <div class="buttons">
