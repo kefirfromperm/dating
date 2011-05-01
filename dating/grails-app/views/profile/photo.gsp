@@ -15,16 +15,16 @@
         <g:form method="post" action="uploadPhoto" enctype="multipart/form-data">
             <g:hiddenField name="id" value="${profile?.id}"/>
             <g:hiddenField name="version" value="${profile?.version}"/>
-            <g:render template="/form/fieldErrors" model="[bean:profile, field:'version']"/>
+            <g:render template="/form/fieldErrors" model="[bean:command, field:'version']"/>
             <g:render template="/form/fileField" model="[
                 labelCode: 'profile.photo.label', label: 'File',
-                required: false, field:'photo', bean:profile
+                required: false, field:'file', bean:command
             ]"/>
             <g:render template="/form/textField" model="[
                     labelCode: 'profile.photo.label1', label: 'URL',
-                    required: false, field:'url', size:'medium', maxLength:2048
+                    required: false, field:'url', bean:command, size:'medium', maxLength:2048
             ]"/>
-            <g:render template="/form/globalErrors" bean="${profile}"/>
+            <g:render template="/form/globalErrors" bean="${command}"/>
             <div class="buttons">
                 <g:submitButton name="save" value="${message(code: 'file.button.upload.label', default: 'Upload')}"/>
             </div>

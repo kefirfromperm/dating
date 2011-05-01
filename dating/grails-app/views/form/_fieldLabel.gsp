@@ -7,5 +7,5 @@ label - default label value (optional)
 --%>
 <label>
     <g:message code="${labelCode}" default="${label}"/>
-    <g:if test="required" ><span class="required">*</span></g:if>
+    <g:if test="${required}" ><span class="required">*</span></g:if>
 </label>

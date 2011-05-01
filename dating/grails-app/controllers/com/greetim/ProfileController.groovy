@@ -23,7 +23,6 @@ import org.apache.commons.io.FileUtils
 
 class ProfileController {
     static allowedMethods = [save: "POST", update: "POST", uploadPhoto: 'POST', delete: "POST"]
-    private static final int MAX_PHOTO_SIZE = 8 * 1024 * 1024
     def afterInterceptor = [action: this.&bookmarks, only: ['show', 'list']];
 
     ProfileService profileService;
@@ -280,128 +279,25 @@ class ProfileController {
 
     @Secured('ROLE_USER')
     def uploadPhoto = withManagedProfile {Profile profile ->
-        MultipartFile mpf = null;
+        UploadPhotoCommand command = new UploadPhotoCommand();
 
-        // Check if request is multipart
-        if (request instanceof MultipartRequest) {
-            mpf = request.getFile('photo');
-        }
+        command.file = request.getFile('file');
+        command.url = params.url;
+        command.version = params.long('version');
 
-        // Check file content
-        if (mpf != null && !mpf.empty && !mpf.contentType.startsWith('image')) {
-            profile.errors.rejectValue(
-                    'photo', 'profile.photo.content.invalid',
-                    'Content type is not accessible!'
-            );
-        }
+        command.profile = profile;
+        command.burningImageService = burningImageService;
+        command.sagaFileService = sagaFileService;
 
-        if ((mpf == null || mpf.empty) && !(new UrlValidator().isValid(params.url))) {
-            profile.errors.rejectValue(
-                    'photo', 'profile.photo.empty',
-                    'Select picture!'
-            );
-        }
-
-        // Download photo
-        boolean uploadedPhoto = false;
-        File file = new File(System.getProperty("java.io.tmpdir"), UUID.randomUUID().toString());
-        String contentType = 'image/';
-        if ((mpf == null || mpf.empty) && !profile.hasErrors()) {
-            HttpClient httpClient = new DefaultHttpClient();
-            try {
-                HttpGet get = new HttpGet((String) params.url);
-                HttpResponse response = httpClient.execute(get);
-                int code = response.getStatusLine().statusCode;
-                HttpEntity entity = response.getEntity();
-                if (entity) {
-                    if (code == HttpStatus.SC_OK) {
-                        contentType = entity.contentType;
-                        if (
-                            contentType.startsWith("image") &&
-                                    (entity.contentLength==null || entity.contentLength < MAX_PHOTO_SIZE)
-                        ) {
-                            OutputStream stream = new BufferedOutputStream(new FileOutputStream(file));
-                            try {
-                                IOUtils.copy(entity.content, stream);
-                            } finally {
-                                stream.close();
-                            }
-                        } else {
-                            profile.errors.rejectValue(
-                                    'photo', 'profile.photo.too.big', [MAX_PHOTO_SIZE].toArray(),
-                                    'Picture is too big!'
-                            );
-                        }
-                    }
-                    entity.consumeContent();
-                }
-
-                if (file.size() < MAX_PHOTO_SIZE) {
-                    uploadedPhoto = true;
-                } else {
-                    profile.errors.rejectValue(
-                            'photo', 'profile.photo.too.big', [MAX_PHOTO_SIZE].toArray(),
-                            'Picture is too big!'
-                    );
-                }
-            } catch (Exception e) {
-                log.error("Error on get gravatar profile for email \"${mail}\"", e);
-            } finally {
-                httpClient.getConnectionManager().shutdown();
-            }
-        }
-
-        // Check version
-        if (params.version) {
-            def version = params.long('version');
-            if (profile.version > version) {
-                profile.errors.rejectValue("version", "profile.optimistic.locking.failure", "Another user has updated this Profile while you were editing")
-            }
-        }
-
-        // Upload and scale image
-        if (!profile.hasErrors()) {
-            try {
-                if (!uploadedPhoto) {
-                    PhotoCommand command = new PhotoCommand();
-                    command.sagaFileService = sagaFileService;
-                    command.multipartFile = mpf;
-                    burningImageService.doWith(mpf).execute(command, {
-                        it.scaleApproximate(
-                                grailsApplication.config.dating.photo.horizontal.size,
-                                grailsApplication.config.dating.photo.vertical.size
-                        );
-                    });
-                    profile.photo = command.file;
-                } else {
-                    UrlPhotoCommand command = new UrlPhotoCommand();
-                    command.sagaFileService = sagaFileService;
-                    command.contentType = contentType;
-                    burningImageService.doWith(file.absolutePath, '/').execute(command, {
-                        it.scaleApproximate(
-                                grailsApplication.config.dating.photo.horizontal.size,
-                                grailsApplication.config.dating.photo.vertical.size
-                        );
-                    });
-                    profile.photo = command.file;
-                }
-                profile.useGravatar = false;
-            } catch (Exception e) {
-                log.error('Can\'t scale image.', e);
-                profile.errors.rejectValue('photo', 'profile.photo.content.invalid', 'Error!');
-            }
-        }
-
-        if (file != null && file.exists()) {
-            file.delete();
+        if(command.validate()){
+            command.execute();
         }
 
         // Save profile
-        if (!profile.hasErrors() && profile.save(flush: true)) {
-            flash.message = 'profile.photo.upload.message';
+        if (!command.hasErrors()) {
             redirect(action: 'photo', id: profile.id);
         } else {
-            render(view: 'photo', model: [profile: profile]);
+            render(view: 'photo', model: [command:command, profile:profile]);
         }
     }
 
@@ -494,37 +390,5 @@ class ProfileController {
             flash.error = true;
             redirect(action: 'list');
         }
-    }
-}
-
-/**
- * Command for save photo
- */
-class PhotoCommand implements SaveCommand {
-    MultipartFile multipartFile;
-    SagaFile file;
-    SagaFileService sagaFileService;
-
-    @Override
-    void execute(byte[] source, String extension) {
-        file = sagaFileService.save(
-                [name: multipartFile.originalFilename, mimetype: multipartFile.contentType, content: source]
-        );
-    }
-}
-
-/**
- * Command for save photo
- */
-class UrlPhotoCommand implements SaveCommand {
-    SagaFile file;
-    SagaFileService sagaFileService;
-    String contentType;
-
-    @Override
-    void execute(byte[] source, String extension) {
-        file = sagaFileService.save(
-                [name: 'photo', mimetype: contentType ?: 'image', content: source]
-        );
     }
 }
