@@ -56,7 +56,7 @@ class ProfileService {
             Long id = (Long) accountProfileCache.get(account.id)?.value;
             if (id) {
                 profile = Profile.get(id);
-                if (profile==null || profile.account != account) {
+                if (profile == null || profile.account != account) {
                     accountProfileCache.remove(account.id);
                     profile = null;
                 }
@@ -76,24 +76,34 @@ class ProfileService {
      * Find profile by alias. Cached.
      */
     public Profile findByAlias(String alias) {
-        Profile profile=null;
+        if(alias==null){
+            return null;
+        }
 
-        Long id = (Long) aliasProfileCache.get(alias)?.value;
+        Profile profile = null;
+
+        // Prepare alias for search
+        String preparedAlias = Profile.prepareAlias(alias);
+
+        // Find in cache
+        Long id = (Long) aliasProfileCache.get(preparedAlias)?.value;
         if (id) {
             profile = Profile.get(id);
-            if(profile==null || profile.alias != alias){
-                aliasProfileCache.remove(alias);
+            if (profile == null || profile.alias != preparedAlias) {
+                aliasProfileCache.remove(preparedAlias);
                 profile = null;
             }
         }
 
-        if(profile==null){
-            profile = Profile.findByAlias(alias);
+        // Find in DB
+        if (profile == null) {
+            profile = Profile.findByAlias(preparedAlias);
             if (profile) {
-                aliasProfileCache.put(new Element(alias, profile.id));
+                aliasProfileCache.put(new Element(preparedAlias, profile.id));
             }
         }
 
+        // Return profile
         return profile;
     }
 

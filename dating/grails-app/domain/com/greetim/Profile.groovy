@@ -40,6 +40,17 @@ class Profile {
         photo(nullable: true);
     }
 
+    def beforeValidate(){
+        alias = prepareAlias(alias);
+    }
+
+    /**
+     * Prepare alias for insert or search
+     */
+    public static String prepareAlias(String alias){
+        return alias?.trim()?.toLowerCase();
+    }
+
     boolean equals(o) {
         if (this.is(o)) return true;
         if (!(o instanceof Profile)) return false;
