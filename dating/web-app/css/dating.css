@@ -194,6 +194,7 @@ div#search-result {
     margin: 5px;
     padding: 5px;
     clear: left;
+    max-width: 700px;
 }
 
 div#search-result h1 {
@@ -276,6 +277,7 @@ div#about {
     clear: left;
     margin: 5px;
     padding: 5px;
+    max-width: 700px;
 }
 
 /* Book */
@@ -377,6 +379,24 @@ div#im-body div#messenger {
     min-height: 300px;
 }
 
+/** Share block */
+div.share{
+    float: left;
+    clear: left;
+    margin: 5px;
+    padding: 5px;
+}
+
+div.share-button {
+    float:left;
+    margin-right: 5px;
+}
+
+div#search-result table tbody tr td div.share{
+    float: none;
+}
+
+/** Too cool for IE */
 a#tooCool {
     position: fixed;
     right: 0;

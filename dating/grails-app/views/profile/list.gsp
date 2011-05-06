@@ -4,6 +4,7 @@
 <head>
     <meta name="layout" content="main"/>
     <title><g:message code="profile.list.label"/></title>
+    <g:render template="/profile/shareHead"/>
 </head>
 <body>
 <div id="search-result">
@@ -17,6 +18,7 @@
                 <td>
                     <p><g:link controller="profile" action="show" params="[alias:profile.alias]">${profile.name.encodeAsHTML()}</g:link></p>
                     <p><saga:bb>${profile.about}</saga:bb></p>
+                    <g:render template="share" model="[profile:profile]"/>
                 </td>
             </tr>
         </g:each>
