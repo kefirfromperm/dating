@@ -24,8 +24,6 @@
     </script>
 </head>
 <body>
-<a id="tooCool" href="http://www.w3junkies.com/toocool/">Too Cool for Internet Explorer</a>
-
 <div id="body">
     <%-- Top header --%>
     <div id="header">

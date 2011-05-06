@@ -28,6 +28,9 @@ $(document).ready(function() {
     //startDataRefreshing();
     $(window).focus(startDataRefreshing);
     $(window).blur(stopDataRefreshing);
+
+    // Hide flash message after 10 seconds
+    $('#flash-message').oneTime('10s', function(){$(this).hide('slow')});
 });
 
 /**
