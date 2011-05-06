@@ -5,10 +5,7 @@
     <meta name="path" content="${request.contextPath}"/>
     <title><g:layoutTitle default="Welcome!"/>&nbsp;&mdash;&nbsp;<g:message code="app.name" default="Greetim"/></title>
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'dating.css')}"/>
-    <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
-    <g:javascript src="jquery/jquery-1.5.min.js"/>
-    <g:javascript src="jquery/jquery.timers-1.2.js"/>
-    <g:javascript src="application.js"/>
+    <g:render template="/layouts/js"/>
     <g:layoutHead/>
     <%-- Google analytics --%>
     <script type="text/javascript">
@@ -66,24 +63,24 @@
     <g:layoutBody/>
 
     <div id="footer">&copy; <g:message code="layout.copy"/></div>
-
-    <!-- Yandex.Metrika counter -->
-    <div style="display:none;"><script type="text/javascript">
-        (function(w, c) {
-            (w[c] = w[c] || []).push(function() {
-                try {
-                    w.yaCounter6302740 = new Ya.Metrika({id:6302740,
-                        clickmap:true,
-                        trackLinks:true});
-                }
-                catch(e) {
-                }
-            });
-        })(window, 'yandex_metrika_callbacks');
-    </script></div>
-    <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
-    <noscript><div><img src="//mc.yandex.ru/watch/6302740" style="position:absolute; left:-9999px;" alt=""/></div></noscript>
-    <!-- /Yandex.Metrika counter -->
 </div>
+
+<!-- Yandex.Metrika counter -->
+<div style="display:none;"><script type="text/javascript">
+    (function(w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter6302740 = new Ya.Metrika({id:6302740,
+                    clickmap:true,
+                    trackLinks:true});
+            }
+            catch(e) {
+            }
+        });
+    })(window, 'yandex_metrika_callbacks');
+</script></div>
+<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+<noscript><div><img src="//mc.yandex.ru/watch/6302740" style="position:absolute; left:-9999px;" alt=""/></div></noscript>
+<!-- /Yandex.Metrika counter -->
 </body>
 </html>
