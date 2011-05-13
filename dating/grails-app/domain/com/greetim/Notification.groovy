@@ -17,13 +17,13 @@ abstract class Notification {
     Date sentDate;
 
     static mapping = {
-        // Use one table for all notifications
         tablePerHierarchy false;
     }
 
     static constraints = {
         recipient(nullable: false);
         status(nullable: false);
+        sentDate(nullable:true);
     }
 }
 
