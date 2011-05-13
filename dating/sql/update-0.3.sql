@@ -16,5 +16,5 @@ CREATE TABLE dating.message_notification
       REFERENCES dating.profile (id) MATCH SIMPLE
       ON UPDATE CASCADE ON DELETE CASCADE
 );
---grant select,insert,update,delete on dating.message_notification to dating;
+grant select,insert,update,delete on dating.message_notification to dating;
 commit transaction;
