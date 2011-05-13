@@ -11,6 +11,7 @@ class MessageController {
 
     ProfileService profileService;
     BookmarkService bookmarkService;
+    NotificationService notificationService;
 
     def index = {
         redirect(controller: 'profile', action: 'list');
@@ -80,6 +81,9 @@ class MessageController {
 
             // Mark all messages from recipient as delivered
             bookmarkService.clearIncoming(messageInstance.from, messageInstance.to);
+
+            // Send notification for user
+            notificationService.notify(messageInstance);
 
             if (ajax(request)) {
                 render(contentType: "text/json") {
