@@ -102,7 +102,7 @@ grails.validateable.packages = ['com.greetim']
 // Spring Security configuration
 grails.plugins.springsecurity.active = true
 
-/** login user class fields  */
+/** login user class fields   */
 grails.plugins.springsecurity.userLookup.userDomainClassName = "com.greetim.Account"
 grails.plugins.springsecurity.userLookup.usernamePropertyName = 'mail'
 grails.plugins.springsecurity.userLookup.passwordPropertyName = 'passwordDigest'
@@ -180,3 +180,6 @@ environments {
 dating.page.max = 30;
 dating.photo.vertical.size = 300;
 dating.photo.horizontal.size = 200;
+
+// Min interval between notifications in minutes for one user
+dating.notification.interval = 2;

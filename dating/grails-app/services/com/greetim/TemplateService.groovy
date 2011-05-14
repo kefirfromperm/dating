@@ -9,7 +9,7 @@ class TemplateService {
 
     FreeMarkerConfigurationFactory freemarkerConfig;
 
-    String process(String name, Object params, Locale locale) {
+    String process(String name, Object params, Locale locale = Locale.ENGLISH) {
         Template template = template(name, locale);
         CharArrayWriter writer = new CharArrayWriter();
         template.process(params, writer);

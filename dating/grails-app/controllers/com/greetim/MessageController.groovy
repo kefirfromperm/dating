@@ -83,7 +83,7 @@ class MessageController {
             bookmarkService.clearIncoming(messageInstance.from, messageInstance.to);
 
             // Send notification for user
-            notificationService.notify(messageInstance);
+            notificationService.notifyUser(messageInstance);
 
             if (ajax(request)) {
                 render(contentType: "text/json") {
