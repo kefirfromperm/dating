@@ -308,7 +308,7 @@ div#messenger {
 }
 
 div#messenger div#message-list {
-    border: groove;
+    border: inset;
     height: 200px;
     overflow: auto;
     margin: 0 0 5px;
@@ -332,27 +332,25 @@ div#messenger div#message-list p label.out {
 }
 
 div#messenger div#message-manage {
-    padding: 0 5px;
-    margin: 0 0 5px;
+    text-align: left;
+    min-height: 24px;
 }
 
-div#messenger div#message-input {
-    width: 100%;
-    height: 54px;
-    text-align: justify;
+div#messenger div#message-manage a{
+    margin-right: 10px;
 }
 
-div#messenger div#message-input textarea {
-    float: left;
-    width: 70%;
+div#body div#messenger div#message-input div#message-text{
+    margin: 0 5px 5px 0;
+}
+
+div#messenger div#message-input div#message-text textarea {
     height: 48px;
-    vertical-align: baseline;
+    width: 100%;
 }
 
 div#messenger div#message-input input#message-send-button {
     float: right;
-    max-width:75%;
-    vertical-align: baseline;
 }
 
 #message-error {
@@ -378,6 +376,11 @@ div#im-body div#messenger {
     height: 80%;
     min-height: 300px;
 }
+
+div#im-body div#messenger div#message-input div#message-text{
+    margin: 0 0 5px 0;
+}
+
 
 /** Share block */
 div.share{

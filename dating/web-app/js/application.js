@@ -202,14 +202,13 @@ function scrollDownMessageArea() {
 
 function resizeMessageList() {
     var messengerHeight = $('#messenger').height();
-    var manageHeight = $('#messenger #message-manage').outerHeight(true);
     var errorHeight = 0;
     if ($('#messenger #message-error').is(':visible')) {
         errorHeight = $('#messenger #message-error').outerHeight(true);
     }
     var inputHeight = $('#messenger #message-input').outerHeight(true);
     var diff = $('#message-list').outerHeight(true) - $('#message-list').height();
-    $('#message-list').height(messengerHeight - manageHeight - errorHeight - inputHeight - diff);
+    $('#message-list').height(messengerHeight - errorHeight - inputHeight - diff);
     scrollDownMessageArea();
 }
 
