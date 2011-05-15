@@ -12,18 +12,20 @@ class BookmarkService {
         return bookmark;
     }
 
-    void incrementIncoming(Profile owner, Profile target) {
+    Bookmark incrementIncoming(Profile owner, Profile target) {
         Bookmark bookmark = find(owner, target);
         bookmark.incoming++;
         bookmark.save(flush: true);
+        return bookmark;
     }
 
-    void clearIncoming(Profile owner, Profile target) {
+    Bookmark clearIncoming(Profile owner, Profile target) {
         Bookmark bookmark = Bookmark.findByOwnerAndTarget(owner, target);
         if (bookmark != null && bookmark.incoming > 0) {
             bookmark.incoming = 0;
             bookmark.save(flush: true);
         }
+        return bookmark;
     }
 
     /**

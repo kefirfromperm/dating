@@ -182,4 +182,4 @@ dating.photo.vertical.size = 300;
 dating.photo.horizontal.size = 200;
 
 // Min interval between notifications in minutes for one user
-dating.notification.interval = 2;
+dating.notification.interval = 60;

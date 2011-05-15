@@ -77,13 +77,15 @@ class MessageController {
         messageInstance.validate();
         if (!messageInstance.hasErrors() && messageInstance.save(flush: true)) {
             // Add undelivered message count to recipient
-            bookmarkService.incrementIncoming(messageInstance.to, messageInstance.from);
+            Bookmark bookmark = bookmarkService.incrementIncoming(messageInstance.to, messageInstance.from);
 
             // Mark all messages from recipient as delivered
             bookmarkService.clearIncoming(messageInstance.from, messageInstance.to);
 
             // Send notification for user
-            notificationService.notifyUser(messageInstance);
+            if (bookmark.status != BookmarkStatus.BAN) {
+                notificationService.notifyUser(messageInstance);
+            }
 
             if (ajax(request)) {
                 render(contentType: "text/json") {

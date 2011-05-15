@@ -2,8 +2,11 @@ package com.greetim
 
 /**
  * Notifications for users about events. New message for example.
+ * It must be abstract, but it can't be abstract, because GORM don't support
+ * inheritance from abstract classes.
+ * We use table-per-hierarchy inheritance strategy for velocity.
  */
-abstract class Notification {
+class Notification {
     // We link notification with profile. Because profile represent people, not account.
     // User, who must be receive notification.
     Profile recipient;
@@ -17,7 +20,6 @@ abstract class Notification {
     Date sentDate;
 
     static mapping = {
-        tablePerHierarchy false;
     }
 
     static constraints = {

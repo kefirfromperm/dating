@@ -27,11 +27,14 @@ class NotificationService {
      */
     public void sendNotifications() {
         Calendar c = Calendar.getInstance();
-        c.add(Calendar.MINUTE, ConfigurationHolder.config.dating.notification.interval);
+        c.add(Calendar.MINUTE, -ConfigurationHolder.config.dating.notification.interval);
         def last = c.getTime();
         List<Profile> recipients = Profile.executeQuery(
-                "select distinct n.recipient from Notification n where n.status=:status and not exists(select n1 from Notification n1 where n1.recipient=n.recipient and n1.status=:sent and n1.dateCreated>:last)",
-                [status: NotificationStatus.CREATED, sent:NotificationStatus.SENT, last:last]
+                "select distinct n.recipient from Notification n where n.status=:status and not exists(" +
+                        "select n1 from Notification n1 " +
+                        "where n1.recipient=n.recipient and n1.status=:sent and n1.dateCreated>:last" +
+                        ")",
+                [status: NotificationStatus.CREATED, sent: NotificationStatus.SENT, last: last]
         );
         recipients.each {Profile recipient ->
             sendNotifications(recipient);
@@ -63,7 +66,7 @@ class NotificationService {
                     // Send notifications by mail
                     asynchronousMailService.sendAsynchronousMail {
                         to recipient.account.mail;
-                        Map params = [notifications: notifications];
+                        Map params = [notifications: notifications, recipient: recipient];
                         subject templateService.process("notificationSubject", params);
                         html templateService.process("notificationBody", params);
                         immediate true

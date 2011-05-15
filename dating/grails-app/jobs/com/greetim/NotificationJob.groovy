@@ -8,7 +8,7 @@ class NotificationJob {
     NotificationService notificationService;
 
     def triggers = {
-        simple(name: 'notificationTrigger', startDelay: 60000, repeatInterval: 60000);
+        simple(name: 'notificationTrigger', startDelay: 60000, repeatInterval: 651256);
     }
 
     def execute() {
