@@ -27,7 +27,7 @@
             </g:if>
             <input type="hidden" name="profile.id" value="${profile.id}"/>
             <textarea name="text"></textarea>
-            <input type="submit" value="<g:message code="message.send.label" />" id="message-send-button"/>
+            <input type="submit" value="<g:message code="message.send.label" />" id="message-send-button" title="Ctrl+Enter" alt="Ctrl+Enter"/>
             <br/>
         </form>
     </div>
