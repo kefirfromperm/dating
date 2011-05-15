@@ -5,7 +5,9 @@
 <#list notifications as notification>
 <#assign message=notification.message/>
 <p>
-    <label>Message is from ${message.from.name?html} at ${message.date?string("yyyy-MM-dd HH:mm:ss")}:</label>
+    <label>Message is from
+        <a href="${serverUrl}/look/${message.from.alias}">${message.from.name?html}</a>
+        at ${message.date?string("yyyy-MM-dd HH:mm:ss")}:</label>
     ${message.text?html}
 </p>
 </#list>
