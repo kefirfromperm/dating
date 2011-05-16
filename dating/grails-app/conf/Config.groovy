@@ -154,7 +154,7 @@ environments {
         // Mail configuration
         grails.mail.host = "localhost"
         grails.mail.props = ["mail.transport.protocol": "smtp"]
-        grails.mail.default.from = "noreply@greetim.com"
+        grails.mail.default.from = "Greetim.com <noreply@greetim.com>"
     }
 }
 

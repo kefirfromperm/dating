@@ -1,7 +1,10 @@
 <#-- @ftlvariable name="notifications" type="java.util.List<com.greetim.Notification>" -->
 <body>
 <p>Hello ${recipient.name?html},</p>
-<p>New messages are at <a href="${serverUrl}">${serverUrl}</a></p>
+<p>
+    New message<#if notifications?size &gt; 1>s</#if> <#if notifications?size &gt; 1>are<#else>is</#if>
+    at <a href="${serverUrl}">${serverUrl}</a>
+</p>
 <#list notifications as notification>
 <#assign message=notification.message/>
 <p>
