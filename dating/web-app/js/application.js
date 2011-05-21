@@ -21,6 +21,9 @@ $(document).ready(function() {
         $(event.target).parents('form').submit();
     });
 
+    // Determine the user time zone
+    determineUserTimeZone();
+
     // Init instant messenger
     initMessenger();
 
@@ -185,6 +188,9 @@ function formatMessage(message) {
             + message.text + '</p>';
 }
 
+/**
+ * Update bookmarks panel
+ */
 function updateBookmarks() {
     $.get(
             path + '/bookmark/content',
@@ -224,5 +230,14 @@ function resizeMessenger() {
         messenger.css('max-height', newHeight);
 
         resizeMessageList();
+    }
+}
+
+/**
+ * Determine and set user time zone
+ */
+function determineUserTimeZone(){
+    if($.cookie('GREETIM_USER_TIME_ZONE')==null){
+        $.get(path +'/ping', {'timeZoneOffset':-new Date().getTimezoneOffset()});
     }
 }

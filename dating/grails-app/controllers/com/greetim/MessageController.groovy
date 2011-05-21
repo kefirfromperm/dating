@@ -5,6 +5,7 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import javax.servlet.http.HttpServletRequest
 import org.apache.commons.lang.StringUtils
+import com.greetim.l10n.TimeZoneResolver
 
 @Secured('ROLE_USER')
 class MessageController {
@@ -12,6 +13,7 @@ class MessageController {
     ProfileService profileService;
     BookmarkService bookmarkService;
     NotificationService notificationService;
+    TimeZoneResolver timeZoneResolver;
 
     def index = {
         redirect(controller: 'profile', action: 'list');
@@ -128,7 +130,10 @@ class MessageController {
                 break;
             }
         }
-        DateFormat dateFormat = new SimpleDateFormat(message(code: 'message.date.format', default: 'MM-dd HH:mm:ss'));
+        DateFormat dateFormat = new SimpleDateFormat(
+                delegate.message(code: 'message.date.format', 'default': 'MM-dd HH:mm:ss')
+        );
+        dateFormat.setTimeZone(timeZoneResolver.resolveTimeZone(request));
         render(contentType: "text/json") {
             timestamp = lastMessageTimestamp;
             incoming = hasNew;

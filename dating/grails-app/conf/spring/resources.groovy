@@ -8,6 +8,7 @@ import org.springframework.cache.ehcache.EhCacheFactoryBean
 import org.springframework.cache.ehcache.EhCacheManagerFactoryBean
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer
+import com.greetim.l10n.CookieTimeZoneResolver
 
 // Place your Spring DSL code here
 beans = {
@@ -47,17 +48,20 @@ beans = {
     cacheManager(EhCacheManagerFactoryBean)
 
     accountProfileCache(EhCacheFactoryBean) {
-        cacheManager = ref('cacheManager')
-        cacheName = 'accountProfileCache'
+        cacheManager = ref('cacheManager');
+        cacheName = 'accountProfileCache';
     }
 
     aliasProfileCache(EhCacheFactoryBean) {
-        cacheManager = ref('cacheManager')
-        cacheName = 'accountProfileCache'
+        cacheManager = ref('cacheManager');
+        cacheName = 'accountProfileCache';
     }
 
     rankCache(EhCacheFactoryBean) {
-        cacheManager = ref('cacheManager')
-        cacheName = 'rankCache'
+        cacheManager = ref('cacheManager');
+        cacheName = 'rankCache';
     }
+
+    // The user time zone resolver
+    timeZoneResolver(CookieTimeZoneResolver);
 }

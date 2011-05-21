@@ -10,7 +10,7 @@
 <p>
     <label>Message is from
         <a href="${serverUrl}/look/${message.from.alias}">${message.from.name?html}</a>
-        at ${message.date?string("yyyy-MM-dd HH:mm:ss")}:</label>
+        at ${message.date?string("yyyy-MM-dd HH:mm:ss zzz")}:</label>
     ${message.text?html}
 </p>
 </#list>
