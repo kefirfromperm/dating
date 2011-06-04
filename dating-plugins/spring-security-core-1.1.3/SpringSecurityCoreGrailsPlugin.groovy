@@ -1,4 +1,4 @@
-/* Copyright 2006-2010 the original author or authors.
+/* Copyright 2006-2011 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -85,6 +85,8 @@ import org.codehaus.groovy.grails.plugins.springsecurity.AjaxAwareAuthentication
 import org.codehaus.groovy.grails.plugins.springsecurity.AjaxAwareAuthenticationSuccessHandler
 import org.codehaus.groovy.grails.plugins.springsecurity.AnnotationFilterInvocationDefinition
 import org.codehaus.groovy.grails.plugins.springsecurity.AuthenticatedVetoableDecisionManager
+import org.codehaus.groovy.grails.plugins.springsecurity.DefaultPostAuthenticationChecks
+import org.codehaus.groovy.grails.plugins.springsecurity.DefaultPreAuthenticationChecks
 import org.codehaus.groovy.grails.plugins.springsecurity.ChannelFilterInvocationSecurityMetadataSourceFactoryBean
 import org.codehaus.groovy.grails.plugins.springsecurity.GormPersistentTokenRepository
 import org.codehaus.groovy.grails.plugins.springsecurity.GormUserDetailsService
@@ -96,6 +98,7 @@ import org.codehaus.groovy.grails.plugins.springsecurity.NullAuthenticationEvent
 import org.codehaus.groovy.grails.plugins.springsecurity.NullSaltSource
 import org.codehaus.groovy.grails.plugins.springsecurity.RequestmapFilterInvocationDefinition
 import org.codehaus.groovy.grails.plugins.springsecurity.RequestHolderAuthenticationFilter
+import org.codehaus.groovy.grails.plugins.springsecurity.ReflectionUtils
 import org.codehaus.groovy.grails.plugins.springsecurity.SecurityEventListener
 import org.codehaus.groovy.grails.plugins.springsecurity.SecurityFilterPosition
 import org.codehaus.groovy.grails.plugins.springsecurity.SecurityRequestHolder
@@ -107,7 +110,7 @@ import org.codehaus.groovy.grails.plugins.springsecurity.WebExpressionVoter
  */
 class SpringSecurityCoreGrailsPlugin {
 
-	String version = '1.1'
+	String version = '1.1.3'
 	String grailsVersion = '1.2.2 > *'
 	List observe = ['controllers']
 	List loadAfter = ['controllers', 'services', 'hibernate']
@@ -127,6 +130,10 @@ class SpringSecurityCoreGrailsPlugin {
 	String documentation = 'http://grails.org/plugin/spring-security-core'
 
 	def doWithWebDescriptor = { xml ->
+
+		SpringSecurityUtils.resetSecurityConfig()
+
+		ReflectionUtils.application = application
 
 		def conf = SpringSecurityUtils.securityConfig
 		if (!conf || !conf.active) {
@@ -165,6 +172,14 @@ class SpringSecurityCoreGrailsPlugin {
 	}
 
 	def doWithSpring = {
+
+		ReflectionUtils.application = application
+
+		if (application.warDeployed) {
+			// need to reset here since web.xml was already built, so
+			// doWithWebDescriptor isn't called when deployed as war
+			SpringSecurityUtils.resetSecurityConfig()
+		}
 
 		SpringSecurityUtils.application = application
 
@@ -218,7 +233,9 @@ class SpringSecurityCoreGrailsPlugin {
 				tokenLength = conf.rememberMe.persistentToken.tokenLength // 16
 			}
 
-			tokenRepository(GormPersistentTokenRepository)
+			tokenRepository(GormPersistentTokenRepository) {
+				grailsApplication = ref('grailsApplication')
+			}
 		}
 		else {
 			rememberMeServices(TokenBasedRememberMeServices) {
@@ -293,6 +310,7 @@ to default to 'Annotation'; setting value to 'Annotation'
 
 		if (securityConfigType == 'Annotation') {
 			objectDefinitionSource(AnnotationFilterInvocationDefinition) {
+				application = ref('grailsApplication')
 				roleVoter = ref('roleVoter')
 				authenticatedVoter = ref('authenticatedVoter')
 				expressionHandler = ref('webExpressionHandler')
@@ -360,11 +378,17 @@ to default to 'Annotation'; setting value to 'Annotation'
 		else {
 			saltSource(NullSaltSource)
 		}
+
+		preAuthenticationChecks(DefaultPreAuthenticationChecks)
+		postAuthenticationChecks(DefaultPostAuthenticationChecks)
+
 		daoAuthenticationProvider(DaoAuthenticationProvider) {
 			userDetailsService = ref('userDetailsService')
 			passwordEncoder = ref('passwordEncoder')
 			userCache = ref('userCache')
 			saltSource = ref('saltSource')
+			preAuthenticationChecks = ref('preAuthenticationChecks')
+			postAuthenticationChecks = ref('postAuthenticationChecks')
 			hideUserNotFoundExceptions = conf.dao.hideUserNotFoundExceptions // true
 		}
 
@@ -377,8 +401,7 @@ to default to 'Annotation'; setting value to 'Annotation'
 
 		/** userDetailsService */
 		userDetailsService(GormUserDetailsService) {
-			sessionFactory = ref('sessionFactory')
-			transactionManager = ref('transactionManager')
+			grailsApplication = ref('grailsApplication')
 		}
 
 		/** authenticationUserDetailsService */
@@ -479,6 +502,8 @@ to default to 'Annotation'; setting value to 'Annotation'
 
 	def doWithDynamicMethods = { ctx ->
 
+		ReflectionUtils.application = application
+
 		def conf = SpringSecurityUtils.securityConfig
 		if (!conf || !conf.active) {
 			return
@@ -495,6 +520,8 @@ to default to 'Annotation'; setting value to 'Annotation'
 	}
 
 	def doWithApplicationContext = { ctx ->
+
+		ReflectionUtils.application = application
 
 		def conf = SpringSecurityUtils.securityConfig
 		if (!conf || !conf.active) {

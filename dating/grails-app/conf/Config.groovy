@@ -1,5 +1,5 @@
-import grails.plugins.springsecurity.SecurityConfigType
-import pl.burningice.plugins.image.engines.RenderingEngine
+import grails.plugins.springsecurity.SecurityConfigType;
+import pl.burningice.plugins.image.engines.RenderingEngine;
 
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts
@@ -113,10 +113,12 @@ grails.plugins.springsecurity.userLookup.accountLockedPropertyName = 'locked'
 grails.plugins.springsecurity.authority.className = "com.greetim.Role"
 grails.plugins.springsecurity.authority.nameField = 'authority'
 
+grails.plugins.springsecurity.dao.reflectionSaltSourceProperty = 'salt'
+
+grails.plugins.springsecurity.rememberMe.key = 'I love PostgreSQL 9.0'
+
 // Cache options
 grails.plugins.springsecurity.cacheUsers = true
-grails.plugins.springsecurity.rememberMe.key = 'I love PostgreSQL 9.0'
-grails.plugins.springsecurity.dao.reflectionSaltSourceProperty = 'salt'
 
 // Default URL after authentication
 grails.plugins.springsecurity.successHandler.defaultTargetUrl = '/profile/show'
